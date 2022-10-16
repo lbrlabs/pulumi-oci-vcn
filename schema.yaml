@@ -1,39 +1,43 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/pulumi/pulumi/master/pkg/codegen/schema/pulumi.json
 ---
-name: xyz
+name: oci-vcn
 resources:
-  xyz:index:StaticPage:
+  oci-vcn:index:Vcn:
     isComponent: true
     inputProperties:
-      indexContent:
+      compartmentId:
         type: string
-        description: The HTML content for index.html.
+        description: Compartment ID to deploy into
+      cidrBlock:
+        type: string
+        description: "Cidr block to use for VCN"
+        plain: true
     requiredInputs:
-      - indexContent
+    - compartmentId
+    - cidrBlock
     properties:
-      bucket:
-        "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket"
+      vcn:
+        "$ref": "/oci/v0.5.0/schema.json#/resources/oci:Core%2Fvcn:Vcn"
         description: The bucket resource.
-      websiteUrl:
-        type: string
-        description: The website URL.
-    required:
-      - bucket
-      - websiteUrl
+    required: 
+    - vcn
 language:
   csharp:
     packageReferences:
       Pulumi: 3.*
-      Pulumi.Aws: 4.*
+      Pulumi.Oci: 0.*
+    rootNamespaces: Lbrlabs.PulumiPackage
   go:
     generateResourceContainerTypes: true
-    importBasePath: github.com/pulumi/pulumi-xyz/sdk/go/xyz
+    importBasePath: github.com/lbrlabs/pulumi-oci-vcn/sdk/go/vcn
   nodejs:
     dependencies:
-      "@pulumi/aws": "^4.0.0"
+      "@pulumi/oci": "^0.5.0"
     devDependencies:
       typescript: "^3.7.0"
+    packageName: "@lbrlabs/pulumi-oci-vcn"
   python:
+    packageName: lbrlabs_pulumi_oci_vcn
     requires:
       pulumi: ">=3.0.0,<4.0.0"
-      pulumi-aws: ">=4.0.0,<5.0.0"
+      pulumi-ic: ">=0.0.0,<1.0.0"

@@ -5,31 +5,33 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export * from "./provider";
-export * from "./staticPage";
+export { ProviderArgs } from "./provider";
+export type Provider = import("./provider").Provider;
+export const Provider: typeof import("./provider").Provider = null as any;
+utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
-// Import resources to register:
-import { StaticPage } from "./staticPage";
+export { VcnArgs } from "./vcn";
+export type Vcn = import("./vcn").Vcn;
+export const Vcn: typeof import("./vcn").Vcn = null as any;
+utilities.lazyLoad(exports, ["Vcn"], () => require("./vcn"));
+
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "xyz:index:StaticPage":
-                return new StaticPage(name, <any>undefined, { urn })
+            case "oci-vcn:index:Vcn":
+                return new Vcn(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("xyz", "index", _module)
-
-import { Provider } from "./provider";
-
-pulumi.runtime.registerResourcePackage("xyz", {
+pulumi.runtime.registerResourceModule("oci-vcn", "index", _module)
+pulumi.runtime.registerResourcePackage("oci-vcn", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:xyz") {
+        if (type !== "pulumi:providers:oci-vcn") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });
