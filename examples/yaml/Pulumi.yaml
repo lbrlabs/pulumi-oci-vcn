@@ -1,0 +1,21 @@
+name: yaml_oci_vcn
+runtime: yaml
+variables:
+  compartmentId:
+    fn::invoke:
+      function: oci:Identity:getCompartment
+      arguments:
+        id: "ocid1.tenancy.oc1..aaaaaaaavh67gfytloujvijdue6pqwhfrlo2ms4jbkpozyez7sgdhf27e4yq"
+      return: id
+resources:
+  vcn:
+    type: oci-vcn:index:Vcn
+    properties:
+      compartmentId: ${compartmentId}
+      cidrBlock: "172.16.0.0/22"
+      createInternetGateway: true
+      createNatGateway: true
+      createServiceGateway: true
+      dnsLabel: "lbriggs" 
+outputs:
+  vcnId: ${vcn.vcnId}

@@ -11,7 +11,7 @@ func construct(ctx *pulumi.Context, typ, name string, inputs provider.ConstructI
 	options pulumi.ResourceOption) (*provider.ConstructResult, error) {
 	// TODO: Add support for additional component resources here.
 	switch typ {
-	case "lbrlabs:index:Vcn":
+	case "oci-vcn:index:Vcn":
 		return constructVcn(ctx, name, inputs, options)
 	default:
 		return nil, errors.Errorf("unknown resource type %s", typ)

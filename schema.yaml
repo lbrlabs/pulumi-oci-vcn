@@ -12,15 +12,55 @@ resources:
         type: string
         description: "Cidr block to use for VCN"
         plain: true
+      dnsLabel:
+        type: string
+        description: "DNS labels for VCN"
+      ipv6Enabled:
+        type: boolean
+        description: "Enable ipv6 for VCN"
+      numberOfSubnets:
+        type: number
+        description: "Number of public and private subnets to create"
+        plain: true
+      createInternetGateway:
+        type: boolean
+        plain: true
+      createServiceGateway:
+        type: boolean
+        plain: true
+      createNatGateway:
+        type: boolean
+        plain: true
     requiredInputs:
     - compartmentId
     - cidrBlock
     properties:
-      vcn:
-        "$ref": "/oci/v0.5.0/schema.json#/resources/oci:Core%2Fvcn:Vcn"
-        description: The bucket resource.
+      vcnId:
+        type: string
+        description: The ID of the VCN.
+      publicSubnetIds:
+        type: array
+        description: The IDs of the public subnets.
+        items:
+          type: string
+      privateSubnetIds:
+        type: array
+        description: The IDs of the private subnets.
+        items:
+          type: string
+      internetGatewayId:
+        type: string
+        description: The ID of the internet gateway.
+      serviceGatewayId:
+        type: string
+        description: The ID of the service gateway.
+      natGatewayId:
+        type: string
+        description: The ID of the NAT gateway.
     required: 
-    - vcn
+    - vcnId
+    - publicSubnetIds
+    - privateSubnetIds
 language:
   csharp:
     packageReferences:

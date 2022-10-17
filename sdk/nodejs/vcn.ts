@@ -4,8 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-import * as pulumiOci from "@pulumi/oci";
-
 export class Vcn extends pulumi.ComponentResource {
     /** @internal */
     public static readonly __pulumiType = 'oci-vcn:index:Vcn';
@@ -22,9 +20,29 @@ export class Vcn extends pulumi.ComponentResource {
     }
 
     /**
-     * The bucket resource.
+     * The ID of the internet gateway.
      */
-    public /*out*/ readonly vcn!: pulumi.Output<pulumiOci.Core.Vcn>;
+    public /*out*/ readonly internetGatewayId!: pulumi.Output<string | undefined>;
+    /**
+     * The ID of the NAT gateway.
+     */
+    public /*out*/ readonly natGatewayId!: pulumi.Output<string | undefined>;
+    /**
+     * The IDs of the private subnets.
+     */
+    public /*out*/ readonly privateSubnetIds!: pulumi.Output<string[]>;
+    /**
+     * The IDs of the public subnets.
+     */
+    public /*out*/ readonly publicSubnetIds!: pulumi.Output<string[]>;
+    /**
+     * The ID of the service gateway.
+     */
+    public /*out*/ readonly serviceGatewayId!: pulumi.Output<string | undefined>;
+    /**
+     * The ID of the VCN.
+     */
+    public /*out*/ readonly vcnId!: pulumi.Output<string>;
 
     /**
      * Create a Vcn resource with the given unique name, arguments, and options.
@@ -45,9 +63,25 @@ export class Vcn extends pulumi.ComponentResource {
             }
             resourceInputs["cidrBlock"] = args ? args.cidrBlock : undefined;
             resourceInputs["compartmentId"] = args ? args.compartmentId : undefined;
-            resourceInputs["vcn"] = undefined /*out*/;
+            resourceInputs["createInternetGateway"] = args ? args.createInternetGateway : undefined;
+            resourceInputs["createNatGateway"] = args ? args.createNatGateway : undefined;
+            resourceInputs["createServiceGateway"] = args ? args.createServiceGateway : undefined;
+            resourceInputs["dnsLabel"] = args ? args.dnsLabel : undefined;
+            resourceInputs["ipv6Enabled"] = args ? args.ipv6Enabled : undefined;
+            resourceInputs["numberOfSubnets"] = args ? args.numberOfSubnets : undefined;
+            resourceInputs["internetGatewayId"] = undefined /*out*/;
+            resourceInputs["natGatewayId"] = undefined /*out*/;
+            resourceInputs["privateSubnetIds"] = undefined /*out*/;
+            resourceInputs["publicSubnetIds"] = undefined /*out*/;
+            resourceInputs["serviceGatewayId"] = undefined /*out*/;
+            resourceInputs["vcnId"] = undefined /*out*/;
         } else {
-            resourceInputs["vcn"] = undefined /*out*/;
+            resourceInputs["internetGatewayId"] = undefined /*out*/;
+            resourceInputs["natGatewayId"] = undefined /*out*/;
+            resourceInputs["privateSubnetIds"] = undefined /*out*/;
+            resourceInputs["publicSubnetIds"] = undefined /*out*/;
+            resourceInputs["serviceGatewayId"] = undefined /*out*/;
+            resourceInputs["vcnId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Vcn.__pulumiType, name, resourceInputs, opts, true /*remote*/);
@@ -66,4 +100,19 @@ export interface VcnArgs {
      * Compartment ID to deploy into
      */
     compartmentId: pulumi.Input<string>;
+    createInternetGateway?: boolean;
+    createNatGateway?: boolean;
+    createServiceGateway?: boolean;
+    /**
+     * DNS labels for VCN
+     */
+    dnsLabel?: pulumi.Input<string>;
+    /**
+     * Enable ipv6 for VCN
+     */
+    ipv6Enabled?: pulumi.Input<boolean>;
+    /**
+     * Number of public and private subnets to create
+     */
+    numberOfSubnets?: number;
 }
