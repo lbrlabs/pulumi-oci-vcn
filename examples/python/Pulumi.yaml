@@ -1,0 +1,6 @@
+name: python_pulumi_oci_vcn
+description: A minimal Python Pulumi program
+runtime:
+    name: python
+    options:
+        virtualenv: venv

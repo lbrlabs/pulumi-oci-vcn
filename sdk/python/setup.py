@@ -54,7 +54,7 @@ setup(name='lbrlabs_pulumi_oci_vcn',
       install_requires=[
           'parver>=0.2.1',
           'pulumi>=3.0.0,<4.0.0',
-          'pulumi-ic>=0.0.0,<1.0.0',
+          'pulumi-oci>=0.0.0,<1.0.0',
           'semver>=2.8.1'
       ],
       zip_safe=False)

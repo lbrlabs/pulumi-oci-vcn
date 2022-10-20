@@ -80,4 +80,4 @@ language:
     packageName: lbrlabs_pulumi_oci_vcn
     requires:
       pulumi: ">=3.0.0,<4.0.0"
-      pulumi-ic: ">=0.0.0,<1.0.0"
+      pulumi-oci: ">=0.0.0,<1.0.0"
